@@ -31,6 +31,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("login/{email}")
+    public ResponseEntity<User> login(@PathVariable String email, @RequestParam String password) {
+        Optional<User> user = userService.findUserByEmail(email);
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
