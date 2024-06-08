@@ -21,7 +21,17 @@ public class UserController {
         return userService.findAllUsers();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> user = userService.findUserById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("login/{email}")
     public ResponseEntity<User> login(@PathVariable String email, @RequestParam String password) {
         Optional<User> user = userService.findUserByEmail(email);
         if (user.isPresent() && user.get().getPassword().equals(password)) {
