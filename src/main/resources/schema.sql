@@ -30,10 +30,10 @@ CREATE TABLE pet (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
                       owner_id BIGINT NOT NULL,
                       name VARCHAR(100) NOT NULL,
-                      image VARCHAR(255),
+                      image TEXT,
                       description TEXT NOT NULL,
                       birth_date DATE NOT NULL,
                       type_id INT NOT NULL,
-                      FOREIGN KEY (owner_id) REFERENCES users(id),
-                      FOREIGN KEY (type_id) REFERENCES pet_types(id)
+                      FOREIGN KEY (owner_id) REFERENCES user(id),
+                      FOREIGN KEY (type_id) REFERENCES pet_type(id)
 );
