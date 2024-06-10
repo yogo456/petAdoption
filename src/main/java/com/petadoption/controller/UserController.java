@@ -1,5 +1,6 @@
 package com.petadoption.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.petadoption.model.User;
 import com.petadoption.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,14 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+
+        System.out.println("user: " + user);
+        Optional<User> u = userService.findUserByEmail(user.getEmail());
+        if(u.isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(userService.saveUser(user));
     }
 
     @DeleteMapping("/{id}")
