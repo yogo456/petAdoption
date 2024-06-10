@@ -34,6 +34,6 @@ CREATE TABLE pet (
                       description TEXT NOT NULL,
                       birth_date DATE NOT NULL,
                       type_id INT NOT NULL,
-                      FOREIGN KEY (owner_id) REFERENCES users(id),
-                      FOREIGN KEY (type_id) REFERENCES pet_types(id)
+                      FOREIGN KEY (owner_id) REFERENCES user(id),
+                      FOREIGN KEY (type_id) REFERENCES pet_type(id)
 );
