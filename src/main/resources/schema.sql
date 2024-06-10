@@ -17,8 +17,8 @@ INSERT INTO pet_type (type) VALUES
 -- Table for users
 CREATE TABLE user (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                       name VARCHAR(100),
-                       family VARCHAR(100),
+                       first_name VARCHAR(100),
+                       last_name VARCHAR(100),
                        email VARCHAR(100) NOT NULL UNIQUE,
                        password VARCHAR(100) NOT NULL,
                        phone VARCHAR(20),
@@ -29,7 +29,7 @@ CREATE TABLE user (
 CREATE TABLE pet (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
                       owner_id BIGINT NOT NULL,
-                      name VARCHAR(100) NOT NULL,
+                      first_name VARCHAR(100) NOT NULL,
                       image TEXT,
                       description TEXT NOT NULL,
                       birth_date DATE NOT NULL,
