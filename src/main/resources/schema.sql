@@ -29,7 +29,7 @@ CREATE TABLE user (
 CREATE TABLE pet (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
                       owner_id BIGINT NOT NULL,
-                      first_name VARCHAR(100) NOT NULL,
+                      name VARCHAR(100) NOT NULL,
                       image TEXT,
                       description TEXT NOT NULL,
                       birth_date DATE NOT NULL,
