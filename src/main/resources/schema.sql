@@ -30,7 +30,7 @@ CREATE TABLE pet (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
                       owner_id BIGINT NOT NULL,
                       name VARCHAR(100) NOT NULL,
-                      image TEXT,
+                      image LONGBLOB,
                       description TEXT NOT NULL,
                       birth_date DATE NOT NULL,
                       type_id INT NOT NULL,
