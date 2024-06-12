@@ -1,5 +1,6 @@
 package com.petadoption.controller;
 
+import com.petadoption.DTOs.PetDTO;
 import com.petadoption.model.Pet;
 import com.petadoption.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,9 @@ public class PetController {
     }
 
     @PostMapping
-    public Pet createPet(@RequestBody Pet pet) {
-        return petService.savePet(pet);
+    public ResponseEntity<Pet> createPet(@RequestBody PetDTO pet) {
+        Pet createdPet = petService.createPet(pet);
+        return ResponseEntity.ok(createdPet);
     }
 
     @DeleteMapping("/{id}")
