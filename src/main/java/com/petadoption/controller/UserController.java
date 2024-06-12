@@ -1,6 +1,7 @@
 package com.petadoption.controller;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.petadoption.DTOs.UserDTO;
 import com.petadoption.model.User;
 import com.petadoption.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +44,34 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody UserDTO user) {
 
         System.out.println("user: " + user);
-        Optional<User> u = userService.findUserByEmail(user.getEmail());
+
+        User userModel = convertToEntity(user);
+
+        Optional<User> u = userService.findUserByEmail(userModel.getEmail());
         if(u.isPresent()) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(userService.saveUser(user));
+        return ResponseEntity.ok(userService.saveUser(userModel));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Utility method to convert UserDTO to entity
+    private User convertToEntity(UserDTO userDTO) {
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setPhone(userDTO.getPhone());
+        user.setAddress(userDTO.getAddress());
+        return user;
     }
 }

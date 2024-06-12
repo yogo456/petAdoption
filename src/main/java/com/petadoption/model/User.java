@@ -18,8 +18,8 @@ public class User {
     private String phone;
     private String address;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Pet> pets;
+    //@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    //private List<Pet> pets;
 
     // Getters and setters
 
@@ -79,6 +79,7 @@ public class User {
         this.address = address;
     }
 
+    /*
     public List<Pet> getPets() {
         return pets;
     }
@@ -86,6 +87,7 @@ public class User {
     public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
+    */
 
     @Override
     public String toString() {

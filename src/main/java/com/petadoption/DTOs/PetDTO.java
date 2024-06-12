@@ -1,48 +1,22 @@
-package com.petadoption.model;
+package com.petadoption.DTOs;
 
-import org.hibernate.annotations.ColumnDefault;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-public class Pet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
-
+public class PetDTO {
+    private Long ownerId;
     private String name;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String image;
     private String description;
     private LocalDate birthDate;
-
-    @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
-    private PetType type;
+    private Long typeId;
 
     // Getters and setters
-
-    public Long getId() {
-        return id;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -77,24 +51,25 @@ public class Pet {
         this.birthDate = birthDate;
     }
 
-    public PetType getType() {
-        return type;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setType(PetType type) {
-        this.type = type;
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     @Override
     public String toString() {
-        return "Pet{" +
-                "id=" + id +
-                ", owner=" + owner.getId() +  // Avoid printing full owner details to prevent circular reference
+        return "PetDTO{" +
+                "ownerId=" + ownerId +
                 ", name='" + name + '\'' +
                 ", image='" + image + '\'' +
                 ", description='" + description + '\'' +
                 ", birthDate=" + birthDate +
-                ", type=" + type +
+                ", typeId=" + typeId +
                 '}';
     }
+
 }
+
