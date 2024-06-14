@@ -63,6 +63,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/users/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO updatedUserDTO) {
+        User updatedUser = userService.editUser(id, convertToEntity(updatedUserDTO));
+        return ResponseEntity.ok(updatedUser);
+    }
+
     // Utility method to convert UserDTO to entity
     private User convertToEntity(UserDTO userDTO) {
         User user = new User();
