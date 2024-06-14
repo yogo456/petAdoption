@@ -32,4 +32,26 @@ public class UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User editUser(Long id, User user) {
+        Optional<User> existingUserOptional = userRepository.findById(id);
+
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+
+            // Update the existing user with values from userDTO
+            existingUser.setEmail(user.getEmail());
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setPhone(user.getPhone());
+            existingUser.setAddress(user.getAddress());
+            // You can add more fields to update as needed
+
+            // Save the updated user
+            return userRepository.save(existingUser);
+        } else {
+            // Handle the case where the user with the given ID doesn't exist
+            throw new IllegalArgumentException("User not found with id: " + id);
+        }
+    }
 }

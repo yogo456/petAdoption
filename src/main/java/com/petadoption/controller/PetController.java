@@ -4,6 +4,7 @@ import com.petadoption.DTOs.PetDTO;
 import com.petadoption.model.Pet;
 import com.petadoption.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +43,11 @@ public class PetController {
     public ResponseEntity<Void> deletePet(@PathVariable Long id) {
         petService.deletePetById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pet> editPet(@PathVariable Long id, @RequestBody PetDTO petDTO) {
+        Pet updatedPet = petService.editPet(id, petDTO);
+        return new ResponseEntity<>(updatedPet, HttpStatus.OK);
     }
 }
