@@ -28,21 +28,7 @@ public class PetService {
     public Pet createPet(PetDTO petDTO) {
         Pet pet = new Pet();
 
-        // Set pet details
-        pet.setName(petDTO.getName());
-        pet.setImage(petDTO.getImage());
-        pet.setDescription(petDTO.getDescription());
-        pet.setBirthDate(petDTO.getBirthDate());
-
-        // Fetch and set the owner
-        User owner = userRepository.findById(petDTO.getOwnerId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        pet.setOwner(owner);
-
-        // Fetch and set the pet type
-        PetType type = petTypeRepository.findById(petDTO.getTypeId())
-                .orElseThrow(() -> new RuntimeException("Pet type not found"));
-        pet.setType(type);
+        setPetDetails(pet, petDTO);
 
         // Save and return the pet
         return petRepository.save(pet);
@@ -58,5 +44,32 @@ public class PetService {
 
     public void deletePetById(Long id) {
         petRepository.deleteById(id);
+    }
+
+    public Pet editPet(Long id, PetDTO petDTO) {
+        Pet pet = petRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pet not found"));
+
+        setPetDetails(pet,petDTO);
+
+        // Save and return the updated pet
+        return petRepository.save(pet);
+    }
+
+    private void setPetDetails(Pet pet, PetDTO petDTO) {
+        pet.setName(petDTO.getName());
+        pet.setImage(petDTO.getImage());
+        pet.setDescription(petDTO.getDescription());
+        pet.setBirthDate(petDTO.getBirthDate());
+
+        // Fetch and set the owner
+        User owner = userRepository.findById(petDTO.getOwnerId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        pet.setOwner(owner);
+
+        // Fetch and set the pet type
+        PetType type = petTypeRepository.findById(petDTO.getTypeId())
+                .orElseThrow(() -> new RuntimeException("Pet type not found"));
+        pet.setType(type);
     }
 }
