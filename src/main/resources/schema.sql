@@ -41,7 +41,6 @@ CREATE TABLE pet (
 CREATE TABLE savedPets (
                            user_id BIGINT NOT NULL,
                            pet_id BIGINT NOT NULL,
-                           saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                            PRIMARY KEY (user_id, pet_id),
                            FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
                            FOREIGN KEY (pet_id) REFERENCES pet(id) ON DELETE CASCADE

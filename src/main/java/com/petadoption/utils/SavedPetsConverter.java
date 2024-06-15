@@ -9,8 +9,7 @@ public class SavedPetsConverter {
     public static SavedPetDTO toDTO(SavedPets savedPets) {
         return new SavedPetDTO(
                 savedPets.getId().getUserId(),
-                savedPets.getId().getPetId(),
-                savedPets.getSavedAt()
+                savedPets.getId().getPetId()
         );
     }
 
@@ -19,9 +18,7 @@ public class SavedPetsConverter {
                 savedPetsDTO.getUserId(),
                 savedPetsDTO.getPetId()
         );
-        SavedPets savedPets = new SavedPets(savedPetsId);
-        savedPets.setSavedAt(savedPetsDTO.getSavedAt());
-        return savedPets;
+        return  new SavedPets(savedPetsId);
     }
 }
 

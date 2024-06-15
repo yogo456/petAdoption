@@ -7,15 +7,13 @@ public class SavedPetDTO {
 
     private Long userId;
     private Long petId;
-    private LocalDateTime savedAt;
 
     public SavedPetDTO() {
     }
 
-    public SavedPetDTO(Long userId, Long petId, LocalDateTime savedAt) {
+    public SavedPetDTO(Long userId, Long petId) {
         this.userId = userId;
         this.petId = petId;
-        this.savedAt = savedAt;
     }
 
     public Long getUserId() {
@@ -34,22 +32,13 @@ public class SavedPetDTO {
         this.petId = petId;
     }
 
-    public LocalDateTime getSavedAt() {
-        return savedAt;
-    }
-
-    public void setSavedAt(LocalDateTime savedAt) {
-        this.savedAt = savedAt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SavedPetDTO)) return false;
         SavedPetDTO that = (SavedPetDTO) o;
         return Objects.equals(getUserId(), that.getUserId()) &&
-                Objects.equals(getPetId(), that.getPetId()) &&
-                Objects.equals(getSavedAt(), that.getSavedAt());
+                Objects.equals(getPetId(), that.getPetId());
     }
 
     @Override
@@ -57,7 +46,6 @@ public class SavedPetDTO {
         return "SavedPetsDTO{" +
                 "userId=" + userId +
                 ", petId=" + petId +
-                ", savedAt=" + savedAt +
                 '}';
     }
 }
