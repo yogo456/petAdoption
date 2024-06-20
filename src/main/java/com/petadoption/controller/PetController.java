@@ -33,8 +33,9 @@ public class PetController {
     public ResponseEntity<List<Pet>> getPetsByFilters(
             @RequestParam(required = false) Long typeId,
             @RequestParam(required = false) Integer minAge,
-            @RequestParam(required = false) Integer maxAge) {
-        List<Pet> pets = petService.findPetsByFilters(typeId, minAge, maxAge);
+            @RequestParam(required = false) Integer maxAge,
+            @RequestParam(required = false) String name) {
+        List<Pet> pets = petService.findPetsByFilters(typeId, minAge, maxAge, name);
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 

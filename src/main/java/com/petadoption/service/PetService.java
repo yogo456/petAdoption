@@ -62,8 +62,8 @@ public class PetService {
         return petRepository.save(pet);
     }
 
-    public List<Pet> findPetsByFilters(Long typeId, Integer minAge, Integer maxAge) {
-        return petRepository.findPetsByFilters(typeId, minAge, maxAge);
+    public List<Pet> findPetsByFilters(Long typeId, Integer minAge, Integer maxAge, String name) {
+        return petRepository.findPetsByFilters(typeId, minAge, maxAge, name);
     }
 
     private void setPetDetails(Pet pet, PetDTO petDTO) {
