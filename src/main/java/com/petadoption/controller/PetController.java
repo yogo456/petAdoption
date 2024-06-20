@@ -26,11 +26,16 @@ public class PetController {
     @GetMapping("/{id}")
     public ResponseEntity<Pet> getPetById(@PathVariable Long id) {
         Optional<Pet> pet = petService.findPetById(id);
-        if (pet.isPresent()) {
-            return ResponseEntity.ok(pet.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return pet.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Pet>> getPetsByFilters(
+            @RequestParam(required = false) Long typeId,
+            @RequestParam(required = false) Integer minAge,
+            @RequestParam(required = false) Integer maxAge) {
+        List<Pet> pets = petService.findPetsByFilters(typeId, minAge, maxAge);
+        return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
     @PostMapping

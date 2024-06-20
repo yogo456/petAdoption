@@ -3,9 +3,11 @@ package com.petadoption.service;
 import com.petadoption.DTOs.PetDTO;
 import com.petadoption.model.Pet;
 import com.petadoption.model.PetType;
+import com.petadoption.model.SavedPets;
 import com.petadoption.model.User;
 import com.petadoption.repository.PetRepository;
 import com.petadoption.repository.PetTypeRepository;
+import com.petadoption.repository.SavedPetsRepository;
 import com.petadoption.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class PetService {
     @Autowired
     private PetTypeRepository petTypeRepository;
 
+    @Autowired
+    private SavedPetsRepository savedPetsRepository;
+
     public Pet createPet(PetDTO petDTO) {
         Pet pet = new Pet();
 
@@ -43,6 +48,7 @@ public class PetService {
     }
 
     public void deletePetById(Long id) {
+        savedPetsRepository.deleteAll(savedPetsRepository.findByIdPetId(id));
         petRepository.deleteById(id);
     }
 
@@ -54,6 +60,10 @@ public class PetService {
 
         // Save and return the updated pet
         return petRepository.save(pet);
+    }
+
+    public List<Pet> findPetsByFilters(Long typeId, Integer minAge, Integer maxAge) {
+        return petRepository.findPetsByFilters(typeId, minAge, maxAge);
     }
 
     private void setPetDetails(Pet pet, PetDTO petDTO) {

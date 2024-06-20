@@ -1,6 +1,7 @@
 package com.petadoption.service;
 
 import com.petadoption.model.User;
+import com.petadoption.repository.SavedPetsRepository;
 import com.petadoption.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SavedPetsRepository savedPetsRepository;
 
     public List<User> findAllUsers() {
         return userRepository.findAll();
@@ -30,6 +34,7 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
+        savedPetsRepository.deleteAll(savedPetsRepository.findByIdUserId(id));
         userRepository.deleteById(id);
     }
 
