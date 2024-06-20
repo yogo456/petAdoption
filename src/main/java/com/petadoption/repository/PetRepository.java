@@ -14,7 +14,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
             "(:typeId IS NULL OR p.type.id = :typeId) AND " +
             "(:minAge IS NULL OR TIMESTAMPDIFF(YEAR, p.birthDate, CURRENT_DATE) >= :minAge) AND " +
             "(:maxAge IS NULL OR TIMESTAMPDIFF(YEAR, p.birthDate, CURRENT_DATE) <= :maxAge) AND " +
-            "(:name IS NULL OR p.name LIKE '%'||:name||'%')")
+            "(:name IS NULL OR LOWER(p.name) LIKE CONCAT('%', LOWER(:name), '%'))")
     List<Pet> findPetsByFilters(@Param("typeId") Long typeId,
                                 @Param("minAge") Integer minAge,
                                 @Param("maxAge") Integer maxAge,
