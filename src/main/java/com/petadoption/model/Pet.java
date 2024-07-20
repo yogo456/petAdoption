@@ -1,7 +1,5 @@
 package com.petadoption.model;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
